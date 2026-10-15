@@ -1,0 +1,30 @@
+<section class="container add-page">
+  <a class="back-link" routerLink="/plantes">← Retour à ma collection</a>
+
+  <div class="form-card card border-0 shadow-sm">
+    <div class="card-body">
+      <div class="form-icon" aria-hidden="true">🪴</div>
+      <p class="eyebrow">AGRANDIR LE JARDIN</p>
+      <h1>Ajouter une plante</h1>
+      <p class="form-description">Notez le nom et la catégorie de votre nouvelle plante.</p>
+
+      <form (ngSubmit)="ajouterPlante()">
+        <label for="plantName" class="form-label">Nom de la plante</label>
+        <input id="plantName" class="form-control form-control-lg" type="text"
+          name="nom" [(ngModel)]="nom" placeholder="Ex. Monstera deliciosa"
+          autocomplete="off" required maxlength="80" />
+        <label for="plantCategory" class="form-label mt-3">Catégorie</label>
+        <select id="plantCategory" class="form-select form-select-lg" name="categorieId"
+          [(ngModel)]="categorieId" required>
+          @for (categorie of categories; track categorie.id) {
+            <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+          }
+        </select>
+        <div class="form-actions">
+          <a class="btn btn-outline-secondary" routerLink="/plantes">Annuler</a>
+          <button class="btn btn-success" type="submit" [disabled]="!nom.trim()">Ajouter à ma collection</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

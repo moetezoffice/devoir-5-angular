@@ -1,0 +1,39 @@
+<section class="container add-page">
+  <a class="back-link" routerLink="/plantes">← Retour à ma collection</a>
+
+  @if (plante) {
+    <div class="form-card card border-0 shadow-sm">
+      <div class="card-body">
+        <div class="form-icon" aria-hidden="true">🪴</div>
+        <p class="eyebrow">METTRE À JOUR LE JARDIN</p>
+        <h1>Modifier une plante</h1>
+        <p class="form-description">Modifiez le nom ou la catégorie de cette plante.</p>
+
+        <form (ngSubmit)="modifierPlante()">
+          <div class="mb-3">
+            <label for="plantId" class="form-label">Identifiant</label>
+            <input id="plantId" class="form-control" type="number" [value]="plante.id" readonly />
+          </div>
+          <div class="mb-3">
+            <label for="plantName" class="form-label">Nom de la plante</label>
+            <input id="plantName" class="form-control form-control-lg" type="text"
+              name="nom" [(ngModel)]="plante.nom" required maxlength="80" />
+          </div>
+          <div>
+            <label for="plantCategory" class="form-label">Catégorie</label>
+            <select id="plantCategory" class="form-select form-select-lg" name="categorieId"
+              [(ngModel)]="categorieId" required>
+              @for (categorie of categories; track categorie.id) {
+                <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+              }
+            </select>
+          </div>
+          <div class="form-actions">
+            <a class="btn btn-outline-secondary" routerLink="/plantes">Annuler</a>
+            <button class="btn btn-success" type="submit" [disabled]="!plante.nom.trim()">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</section>

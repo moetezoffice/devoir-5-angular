@@ -1,59 +1,27 @@
 # MesPlantes
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.26.
+Petit atelier Angular de gestion d’une collection de plantes, adapté de l’atelier « MesProduits ».
 
-## Development server
-
-To start a local development server, run:
+## Lancer le projet
 
 ```bash
-ng serve
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Ouvrez ensuite <http://localhost:4200/>. La page d’accueil redirige vers `/plantes`.
 
-## Code scaffolding
+## Fonctionnalités
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Navigation Bootstrap entre la collection et les formulaires.
+- Affichage des plantes et de leur catégorie avec la syntaxe Angular `@for`.
+- Ajout d’une plante en choisissant sa catégorie.
+- Modification du nom et de la catégorie depuis une route qui contient l’identifiant de la plante.
+- Suppression d’une plante après confirmation.
+- Redirection des URL inconnues vers la collection.
 
-```bash
-ng generate component component-name
-```
+## Adaptation des ateliers 03 et 04
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Les exemples « produit » des ateliers deviennent des plantes dans cette application. Le service partagé conserve une collection typée avec un identifiant, un nom et une catégorie pour chaque plante. La page de collection permet de lancer la modification ou la suppression; la route `/edit-plante/:id` transmet l’identifiant au formulaire, qui le garde en lecture seule. Les catégories sont définies dans le service puis réutilisées à l’ajout, à l’affichage et à la modification.
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Les plantes et leurs modifications sont conservées dans l’état en mémoire pendant la session courante; elles ne sont pas enregistrées dans une base de données.

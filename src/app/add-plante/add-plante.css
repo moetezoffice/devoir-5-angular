@@ -1,0 +1,84 @@
+.add-page {
+  max-width: 720px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  color: #52715e;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: #244233;
+}
+
+.form-card {
+  border-radius: 1rem;
+}
+
+.form-card .card-body {
+  padding: clamp(1.5rem, 6vw, 3rem);
+}
+
+.form-icon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-bottom: 1.5rem;
+  place-items: center;
+  border-radius: 1rem;
+  background: #edf5ee;
+  font-size: 1.5rem;
+}
+
+.eyebrow {
+  margin-bottom: 0.65rem;
+  color: #64816f;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+h1 {
+  margin: 0;
+  color: #203b2f;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+}
+
+.form-description {
+  margin: 0.75rem 0 2rem;
+  color: #718078;
+  line-height: 1.6;
+}
+
+.form-label {
+  color: #344b3d;
+  font-weight: 600;
+}
+
+.form-control:focus {
+  border-color: #78a98b;
+  box-shadow: 0 0 0 0.2rem rgb(83 139 101 / 16%);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn-success {
+  background: #317253;
+  border-color: #317253;
+}
+
+@media (max-width: 480px) {
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+}

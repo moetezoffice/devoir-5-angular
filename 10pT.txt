@@ -1,0 +1,152 @@
+-- TP3 SQL - Tables CLIENT et COMMANDE
+-- Script compatible avec Oracle SQL / SQL Developer.
+
+-- 1. Creation des tables et insertion des donnees
+CREATE TABLE client (
+    numcl   VARCHAR2(2)   PRIMARY KEY,
+    nom     VARCHAR2(50)  NOT NULL,
+    prenom  VARCHAR2(50)  NOT NULL
+);
+
+CREATE TABLE commande (
+    code     NUMBER         PRIMARY KEY,
+    produit  VARCHAR2(50)   NOT NULL,
+    prix     NUMBER(8, 2)   NOT NULL,
+    vdate    DATE           NOT NULL,
+    numcl    VARCHAR2(2)   NOT NULL,
+    CONSTRAINT fk_commande_client
+        FOREIGN KEY (numcl) REFERENCES client(numcl)
+);
+
+INSERT INTO client (numcl, nom, prenom) VALUES ('C1', 'Sami', 'Nabli');
+INSERT INTO client (numcl, nom, prenom) VALUES ('C2', 'Maha', 'Abidi');
+INSERT INTO client (numcl, nom, prenom) VALUES ('C3', 'Rim', 'Arfaoui');
+INSERT INTO client (numcl, nom, prenom) VALUES ('C4', 'Anis', 'Ben fadhel');
+
+INSERT INTO commande (code, produit, prix, vdate, numcl)
+VALUES (1, 'cartable', 30, TO_DATE('20-02-2025', 'DD-MM-YYYY'), 'C1');
+INSERT INTO commande (code, produit, prix, vdate, numcl)
+VALUES (2, 'livre', 5.5, TO_DATE('20-03-2024', 'DD-MM-YYYY'), 'C1');
+INSERT INTO commande (code, produit, prix, vdate, numcl)
+VALUES (3, 'crayon', 3, TO_DATE('20-01-2025', 'DD-MM-YYYY'), 'C2');
+INSERT INTO commande (code, produit, prix, vdate, numcl)
+VALUES (4, 'trousse', 8, TO_DATE('20-02-2025', 'DD-MM-YYYY'), 'C4');
+INSERT INTO commande (code, produit, prix, vdate, numcl)
+VALUES (5, 'trousse', 8, TO_DATE('20-02-2025', 'DD-MM-YYYY'), 'C3');
+
+COMMIT;
+
+-- 2. Prix du produit le moins cher
+SELECT MIN(prix) AS prix_minimum
+FROM commande;
+
+-- 3. Prix du produit le plus cher
+SELECT MAX(prix) AS prix_maximum
+FROM commande;
+
+-- 4. Nombre de produits commandes
+SELECT COUNT(*) AS nombre_de_produits
+FROM commande;
+
+-- 5. Moyenne des prix
+SELECT AVG(prix) AS prix_moyen
+FROM commande;
+
+-- 6. Noms de tous les produits (doublons compris)
+SELECT produit
+FROM commande;
+
+-- 7. Noms des produits differents
+SELECT DISTINCT produit
+FROM commande;
+
+-- 8. Noms des produits par ordre alphabetique croissant
+SELECT produit
+FROM commande
+ORDER BY produit ASC;
+
+-- 9. Noms des produits par ordre alphabetique decroissant
+SELECT produit
+FROM commande
+ORDER BY produit DESC;
+
+-- 10. Total des prix de tous les produits
+SELECT SUM(prix) AS total_prix
+FROM commande;
+
+-- 11. Total a payer groupe par client
+SELECT numcl, SUM(prix) AS total_a_payer
+FROM commande
+GROUP BY numcl
+ORDER BY numcl;
+
+-- 12. Total des prix groupe par produit
+SELECT produit, SUM(prix) AS total_prix
+FROM commande
+GROUP BY produit
+ORDER BY produit;
+
+-- 13. Nombre de produits commandes groupe par date
+SELECT vdate, COUNT(*) AS nombre_de_produits
+FROM commande
+GROUP BY vdate
+ORDER BY vdate;
+
+-- 14. Noms des clients avec une premiere lettre en majuscule
+SELECT INITCAP(nom) AS nom_avec_initiale_majuscule
+FROM client;
+
+-- 15. Prix d'un livre
+SELECT prix
+FROM commande
+WHERE LOWER(produit) = 'livre';
+
+-- 16. Prix arrondi d'un livre
+SELECT ROUND(prix) AS prix_arrondi
+FROM commande
+WHERE LOWER(produit) = 'livre';
+
+-- 17. Date de la commande du cartable achete par Sami
+SELECT c.vdate
+FROM commande c
+JOIN client cl ON cl.numcl = c.numcl
+WHERE LOWER(cl.nom) = 'sami'
+  AND LOWER(c.produit) = 'cartable';
+
+-- 18. Mois de la commande du livre achete par Sami
+SELECT EXTRACT(MONTH FROM c.vdate) AS mois_commande
+FROM commande c
+JOIN client cl ON cl.numcl = c.numcl
+WHERE LOWER(cl.nom) = 'sami'
+  AND LOWER(c.produit) = 'livre';
+
+-- 19. Annee de la commande du livre achete par Sami
+SELECT EXTRACT(YEAR FROM c.vdate) AS annee_commande
+FROM commande c
+JOIN client cl ON cl.numcl = c.numcl
+WHERE LOWER(cl.nom) = 'sami'
+  AND LOWER(c.produit) = 'livre';
+
+-- 20. Identificateurs des commandes passees durant l'annee 2020
+SELECT code
+FROM commande
+WHERE EXTRACT(YEAR FROM vdate) = 2020;
+
+-- 21. Noms des clients en majuscules
+SELECT UPPER(nom) AS nom_en_majuscules
+FROM client;
+
+-- 22. Effacer la commande numero 1
+DELETE FROM commande
+WHERE code = 1;
+
+-- 23. Effacer le client C1
+-- La commande numero 2 lui appartient encore : on la supprime d'abord
+-- pour respecter la cle etrangere, puis on supprime le client.
+DELETE FROM commande
+WHERE numcl = 'C1';
+
+DELETE FROM client
+WHERE numcl = 'C1';
+
+COMMIT;

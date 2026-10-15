@@ -1,0 +1,52 @@
+<section class="container plants-page">
+  <div class="page-heading">
+    <div>
+      <p class="eyebrow">MON PETIT JARDIN</p>
+      <h1>Ma collection de plantes</h1>
+      <p class="page-description">Un aperçu de toutes les plantes qui grandissent chez vous.</p>
+    </div>
+    <a class="btn btn-success" routerLink="/add-plante">＋ Ajouter une plante</a>
+  </div>
+
+  <div class="collection-card card border-0 shadow-sm">
+    <div class="card-body p-0">
+      <div class="collection-header">
+        <div>
+          <h2>Mes plantes</h2>
+          <p>{{ plantesService.plantes().length }} plante(s) dans votre collection</p>
+        </div>
+        <span class="collection-icon" aria-hidden="true">🌱</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nom de la plante</th>
+              <th scope="col">Catégorie</th>
+              <th scope="col" class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (plante of plantesService.plantes(); track plante.id; let index = $index) {
+              <tr>
+                <td class="plant-number">{{ (index + 1).toString().padStart(2, '0') }}</td>
+                <td><span class="plant-dot" aria-hidden="true">✿</span>{{ plante.nom }}</td>
+                <td><span class="badge rounded-pill text-bg-light">{{ plante.categorie.nom }}</span></td>
+                <td class="text-end text-nowrap">
+                  <a class="btn btn-sm btn-outline-success me-2" [routerLink]="['/edit-plante', plante.id]">Modifier</a>
+                  <button class="btn btn-sm btn-outline-danger" type="button" (click)="supprimerPlante(plante)">Supprimer</button>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4" class="empty-state">Votre collection est vide. Ajoutez votre première plante !</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
