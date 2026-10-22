@@ -1,0 +1,43 @@
+<section class="atelier-search">
+  <h2>Recherche par catégorie</h2>
+
+  <div class="search-control">
+    <label for="plantCategory" class="form-label">Catégories</label>
+    <select id="plantCategory" class="form-select" name="idCategorie"
+      [(ngModel)]="idCategorie" (ngModelChange)="onChange()">
+      <option [ngValue]="null">Choisir une catégorie</option>
+      @for (categorie of categories; track categorie.id) {
+        <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+      }
+    </select>
+  </div>
+
+  @if (idCategorie !== null) {
+    <div class="card shadow-sm mt-4">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <thead>
+              <tr>
+                <th>Id</th><th>Nom</th><th>Prix</th><th>Date création</th><th>Catégorie</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (plante of plantes; track plante.id) {
+                <tr>
+                  <td>{{ plante.id }}</td>
+                  <td>{{ plante.nom }}</td>
+                  <td>{{ plante.prix }}</td>
+                  <td>{{ plante.dateCreation | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ plante.categorie?.nom ?? 'PAS DE CATÉGORIE' }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="5" class="text-center text-muted">Aucune plante pour cette catégorie.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+</section>

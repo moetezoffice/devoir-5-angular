@@ -1,20 +1,16 @@
 :root {
   color-scheme: light;
-  font-family: Arial, sans-serif;
-  background: #f7f9f6;
 }
 
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
-  background: #f7f9f6;
-  color: #263b30;
-  font-family: Arial, sans-serif;
+  background: #fff;
+  color: #212529;
   -webkit-font-smoothing: antialiased;
 }
 
-button,
-input {
-  font: inherit;
+.atelier-nav {
+  background-color: #343a40 !important;
 }

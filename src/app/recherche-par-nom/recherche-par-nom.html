@@ -1,0 +1,85 @@
+<section class="atelier-search">
+  <h2>Recherche par nom</h2>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="h5">Recherche avec le service</h3>
+      <form class="row g-2 align-items-end" (ngSubmit)="rechercherPlantes()">
+        <div class="col-sm-8 col-md-6">
+          <label for="nomRecherche" class="form-label">Nom de la plante</label>
+          <input id="nomRecherche" class="form-control" type="search" name="nomRecherche"
+            [(ngModel)]="nomRecherche" placeholder="Ex. monstera" />
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-primary" type="submit">Rechercher</button>
+        </div>
+      </form>
+
+      <div class="table-responsive mt-3">
+        <table class="table table-striped mb-0">
+          <thead><tr><th>Id</th><th>Nom</th><th>Prix</th><th>Date création</th><th>Catégorie</th></tr></thead>
+          <tbody>
+            @for (plante of resultatsApi; track plante.id) {
+              <tr>
+                <td>{{ plante.id }}</td><td>{{ plante.nom }}</td><td>{{ plante.prix }}</td>
+                <td>{{ plante.dateCreation | date:'dd/MM/yyyy' }}</td><td>{{ plante.categorie?.nom ?? 'PAS DE CATÉGORIE' }}</td>
+              </tr>
+            } @empty {
+              <tr><td colspan="5" class="text-center text-muted">Aucun résultat.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h3 class="h5">Filtrage local avec keyup</h3>
+      <label for="keyupSearch" class="form-label">Tape un nom pour filtrer la liste</label>
+      <input id="keyupSearch" #keyupSearch class="form-control search-control" type="search"
+        (keyup)="onKeyUp(keyupSearch.value)" placeholder="La liste se filtre pendant la saisie" />
+
+      <div class="table-responsive mt-3">
+        <table class="table table-striped mb-0">
+          <thead><tr><th>Id</th><th>Nom</th><th>Prix</th><th>Date création</th><th>Catégorie</th></tr></thead>
+          <tbody>
+            @for (plante of resultatsKeyup; track plante.id) {
+              <tr>
+                <td>{{ plante.id }}</td><td>{{ plante.nom }}</td><td>{{ plante.prix }}</td>
+                <td>{{ plante.dateCreation | date:'dd/MM/yyyy' }}</td><td>{{ plante.categorie?.nom ?? 'PAS DE CATÉGORIE' }}</td>
+              </tr>
+            } @empty {
+              <tr><td colspan="5" class="text-center text-muted">Aucun résultat.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="h5">Filtrage avec le pipe searchFilter</h3>
+      <label for="pipeSearch" class="form-label">Nom de la plante</label>
+      <input id="pipeSearch" class="form-control search-control" type="search" name="searchTerm"
+        [(ngModel)]="searchTerm" placeholder="Ex. aloe" />
+
+      <div class="table-responsive mt-3">
+        <table class="table table-striped mb-0">
+          <thead><tr><th>Id</th><th>Nom</th><th>Prix</th><th>Date création</th><th>Catégorie</th></tr></thead>
+          <tbody>
+            @for (plante of toutesLesPlantes | searchFilter: searchTerm; track plante.id) {
+              <tr>
+                <td>{{ plante.id }}</td><td>{{ plante.nom }}</td><td>{{ plante.prix }}</td>
+                <td>{{ plante.dateCreation | date:'dd/MM/yyyy' }}</td><td>{{ plante.categorie?.nom ?? 'PAS DE CATÉGORIE' }}</td>
+              </tr>
+            } @empty {
+              <tr><td colspan="5" class="text-center text-muted">Aucun résultat.</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Categorie } from '../models/categorie.model';
 import { Plante } from '../models/plante.model';
-import { PlantesService } from '../plantes.service';
+import { PlantesService } from '../service/plantes.service';
 
 @Component({
   selector: 'app-edit-plante',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   templateUrl: './edit-plante.html',
   styleUrl: './edit-plante.css',
 })
@@ -38,7 +38,7 @@ export class EditPlante {
 
     const categorie = this.plantesService.consulterCategorie(this.categorieId);
     const nom = this.plante.nom.trim();
-    if (!categorie || !nom) return;
+    if (!categorie || !nom || !Number.isFinite(this.plante.prix) || this.plante.prix < 0 || !this.plante.dateCreation) return;
 
     this.plantesService.modifier({ ...this.plante, nom, categorie });
     void this.router.navigate(['/plantes']);

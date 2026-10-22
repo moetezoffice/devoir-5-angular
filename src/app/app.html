@@ -1,32 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-dark garden-nav">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/plantes">
-      <span class="brand-mark" aria-hidden="true">🌿</span>
-      <span>MesPlantes</span>
-    </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark atelier-nav">
+  <div class="container-fluid px-3 px-lg-4">
+    <a class="navbar-brand" routerLink="/plantes">Gestion Plantes</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-      data-bs-target="#mainNavigation" aria-controls="mainNavigation"
-      aria-expanded="false" aria-label="Ouvrir le menu">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavigation"
+      aria-controls="mainNavigation" aria-expanded="false" aria-label="Ouvrir le menu">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="mainNavigation">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/plantes" routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: true }">Ma collection</a>
+          <a class="nav-link" routerLink="/plantes" routerLinkActive="active">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="btn btn-light btn-sm add-nav-link" routerLink="/add-plante">
-            <span aria-hidden="true">＋</span> Ajouter une plante
-          </a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">Plantes</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/plantes">Liste des plantes</a></li>
+            <li><a class="dropdown-item" routerLink="/add-plante">Ajouter une plante</a></li>
+            <li> <a class="dropdown-item"  routerLink="/rechercheParCategorie" >Recherche Par Catégorie</a></li>
+            <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche par nom</a></li>
+          </ul>
         </li>
       </ul>
+      <span class="navbar-text">[username] <span aria-hidden="true">▾</span></span>
     </div>
   </div>
 </nav>
 
-<main class="page-shell">
+<main class="container page-shell">
   <router-outlet />
 </main>

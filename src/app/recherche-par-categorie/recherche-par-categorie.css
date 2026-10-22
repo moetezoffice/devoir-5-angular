@@ -1,0 +1,12 @@
+.atelier-search {
+  width: 100%;
+}
+
+.atelier-search h2,
+.atelier-search h3 {
+  font-weight: 400;
+}
+
+.search-control {
+  width: min(100%, 420px);
+}

@@ -3,34 +3,7 @@
   min-height: 100vh;
 }
 
-.garden-nav {
-  background: #173d32;
-  box-shadow: 0 8px 24px rgb(24 54 43 / 12%);
-}
-
-.navbar-brand {
-  font-weight: 700;
-  letter-spacing: -0.03em;
-}
-
-.brand-mark {
-  font-size: 1.35rem;
-}
-
-.navbar .nav-link {
-  color: rgb(255 255 255 / 75%);
-}
-
-.navbar .nav-link:hover,
-.navbar .nav-link.active {
-  color: #fff;
-}
-
-.add-nav-link {
-  color: #173d32;
-  font-weight: 600;
-}
-
 .page-shell {
-  padding: clamp(2rem, 6vw, 5rem) 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
 }

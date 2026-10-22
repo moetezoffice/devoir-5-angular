@@ -1,39 +1,41 @@
-<section class="container add-page">
-  <a class="back-link" routerLink="/plantes">← Retour à ma collection</a>
+@if (plante) {
+  <section class="atelier-form">
+    <h2>Modifier une Plante :</h2>
 
-  @if (plante) {
-    <div class="form-card card border-0 shadow-sm">
-      <div class="card-body">
-        <div class="form-icon" aria-hidden="true">🪴</div>
-        <p class="eyebrow">METTRE À JOUR LE JARDIN</p>
-        <h1>Modifier une plante</h1>
-        <p class="form-description">Modifiez le nom ou la catégorie de cette plante.</p>
-
-        <form (ngSubmit)="modifierPlante()">
-          <div class="mb-3">
-            <label for="plantId" class="form-label">Identifiant</label>
-            <input id="plantId" class="form-control" type="number" [value]="plante.id" readonly />
-          </div>
-          <div class="mb-3">
-            <label for="plantName" class="form-label">Nom de la plante</label>
-            <input id="plantName" class="form-control form-control-lg" type="text"
-              name="nom" [(ngModel)]="plante.nom" required maxlength="80" />
-          </div>
-          <div>
-            <label for="plantCategory" class="form-label">Catégorie</label>
-            <select id="plantCategory" class="form-select form-select-lg" name="categorieId"
-              [(ngModel)]="categorieId" required>
-              @for (categorie of categories; track categorie.id) {
-                <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
-              }
-            </select>
-          </div>
-          <div class="form-actions">
-            <a class="btn btn-outline-secondary" routerLink="/plantes">Annuler</a>
-            <button class="btn btn-success" type="submit" [disabled]="!plante.nom.trim()">Enregistrer</button>
-          </div>
-        </form>
+    <form (ngSubmit)="modifierPlante()">
+      <div class="field-id">
+        <label for="plantId" class="form-label">ID Plante</label>
+        <input id="plantId" class="form-control" type="number" [value]="plante.id" readonly />
       </div>
-    </div>
-  }
-</section>
+
+      <div class="mb-1">
+        <label for="plantName" class="form-label">Nom Plante</label>
+        <input id="plantName" class="form-control" type="text" name="nom"
+          [(ngModel)]="plante.nom" required maxlength="80" />
+      </div>
+
+      <div class="field-id">
+        <label for="plantPrice" class="form-label">Prix Plante</label>
+        <input id="plantPrice" class="form-control" type="number" name="prix"
+          [(ngModel)]="plante.prix" min="0" step="0.01" required />
+      </div>
+
+      <div class="mb-2">
+        <label for="plantDate" class="form-label">Date création</label>
+        <input id="plantDate" class="form-control" type="date" name="dateCreation"
+          [(ngModel)]="plante.dateCreation" required />
+      </div>
+
+      <div class="mb-2">
+        <label for="plantCategory" class="form-label">Catégorie</label>
+        <select id="plantCategory" class="form-select" name="categorieId" [(ngModel)]="categorieId" required>
+          @for (categorie of categories; track categorie.id) {
+            <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+          }
+        </select>
+      </div>
+
+      <button class="btn btn-success" type="submit" [disabled]="!plante.nom.trim() || plante.prix < 0">Modifier</button>
+    </form>
+  </section>
+}
